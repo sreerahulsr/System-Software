@@ -1,0 +1,111 @@
+#include <stdio.h>  
+#include <stdlib.h> 
+#define LOW 0
+#define HIGH 199
+#define START 53
+int cmpfunc (const void * a, const void * b) {
+   return ( *(int*)a - *(int*)b );
+}
+//function to swap 2 integers
+void swap(int *a, int *b)
+{
+    if (*a != *b)
+    {
+        *a = (*a ^ *b);
+        *b = (*a ^ *b);
+        *a = (*a ^ *b);
+        return;
+    }
+}
+
+//Prints the sequence and the performance metric
+void printSeqNPerformance(int *request, int numRequest)
+{
+    int i, last, acc = 0;
+    last = START;
+    printf("\n");
+    printf("%d", START);
+    for (i = 0; i < numRequest; i++)
+    {
+        printf(" -> %d", request[i]);
+        acc += abs(last - request[i]);
+        last = request[i];
+    }
+    printf("\nSeek_Time : %d\n", acc);
+    return;
+}
+
+// FCFS
+void accessFCFS(int *request, int numRequest)
+{
+    printf("\n----------------\n");
+    printf("FCFS :");
+    printSeqNPerformance(request, numRequest);
+    printf("----------------\n");
+    return;
+}
+
+
+
+// SCAN
+void accessSCAN(int *request, int numRequest)
+{
+    int newRequest,newCnt;
+    printf("\n----------------\n");
+    printf("SCAN :");
+    printSeqNPerformance(newRequest, newCnt);
+    printf("----------------\n");
+    return;
+}
+
+// CSCAN
+void accessCSCAN(int *request, int numRequest)
+{
+    int newRequest,newCnt;
+    printf("\n----------------\n");
+    printf("CSCAN :");
+    printSeqNPerformance(newRequest, newCnt);
+    printf("----------------\n");
+    return;
+}
+int main()
+{
+    int *request, numRequest, i,ans;
+    //allocate memory to store requests
+    printf("Enter the number of disk access requests : ");
+    scanf("%d", &numRequest);
+    request = malloc(numRequest * sizeof(int));
+
+    printf("Enter the requests ranging between %d and %d\n", LOW, HIGH);
+    for (i = 0; i < numRequest; i++)
+    {
+        scanf("%d", &request[i]);
+    }
+
+    printf("\nScheduling_Methods : \n");
+    printf("----------------\n");
+    printf("1\t FCFS\n");
+    printf("2\t SCAN\n");
+    printf("3\t CSCAN\n");
+    printf("----------------\n");
+    scanf("%d",&ans);
+
+    switch (ans)
+    {
+    //access the disk location in FCFS
+    case 1: accessFCFS(request, numRequest);
+        break;
+
+        //access the disk location in SCAN
+     case 2: accessSCAN(request, numRequest);
+        break;
+
+        //access the disk location in CSCAN
+    case 3: accessCSCAN(request,numRequest);
+        break;
+
+    default:
+        break;
+    }
+    return 0;
+}
